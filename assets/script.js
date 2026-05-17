@@ -207,13 +207,48 @@ function renderEraCounts() {
 
 async function submitToMythShelf(payload) {
   try {
-    const response = await fetch(MYTHSHELF_APP_URL, {
+    // Google Apps Script web apps can be awkward with browser CORS.
+    // no-cors still sends the payload to the script, but the page cannot read the JSON response.
+    await fetch(MYTHSHELF_APP_URL, {
       method: "POST",
+      mode: "no-cors",
       body: JSON.stringify(payload)
     });
-    return await response.json();
+    return { ok: true, message: "Sent to MythShelf." };
   } catch (error) {
     return { ok: false, message: "The shelf could not be reached. Please try again." };
+  }
+}
+
+
+async function loadTopVotedQuests() {
+  const grid = document.getElementById("topVotesGrid");
+  if (!grid) return;
+
+  try {
+    const response = await fetch(TOP_VOTES_URL + "&cacheBust=" + Date.now(), { cache: "no-store" });
+    if (!response.ok) throw new Error("Top votes feed unavailable");
+    const data = await response.json();
+
+    if (!data.ok || !Array.isArray(data.votes) || data.votes.length === 0) {
+      grid.innerHTML = `<article class="panel"><h3>No votes yet</h3><p>Cast the first vote on the Wish Shelf.</p><a class="btn btn-primary" href="wish-shelf.html">Vote the Next Quest</a></article>`;
+      return;
+    }
+
+    grid.innerHTML = data.votes.slice(0, 10).map((item, index) => {
+      const votes = Number(item.voteCount) || 0;
+      return `
+        <article class="panel vote-card">
+          <div class="pill-row"><span class="pill status">#${index + 1}</span><span class="pill score">${votes} vote${votes === 1 ? "" : "s"}</span></div>
+          <h3>${esc(item.bookTitle)}</h3>
+          <p>${esc(item.author || "Author not listed")}${item.genre || item.series ? " · " + esc(item.genre || item.series) : ""}</p>
+          ${item.status ? `<span class="pill">${esc(item.status)}</span>` : ""}
+        </article>
+      `;
+    }).join("");
+  } catch (error) {
+    console.warn("Top votes failed:", error);
+    grid.innerHTML = `<article class="panel"><h3>Votes are resting</h3><p>Top voted quests could not be loaded right now.</p></article>`;
   }
 }
 
@@ -268,8 +303,11 @@ function wireForms() {
         voterName: vote.voterName.value,
         reason: vote.reason.value
       });
-      message.textContent = result.ok ? "Your vote has entered the Wish Shelf." : result.message;
-      if (result.ok) vote.reset();
+      message.textContent = result.ok ? "Your vote was sent to the Wish Shelf." : result.message;
+      if (result.ok) {
+        vote.reset();
+        setTimeout(loadTopVotedQuests, 1200);
+      }
     });
   }
 }
@@ -281,9 +319,9 @@ async function initMythShelf() {
     renderStats();
     renderTop10();
     renderCurrent();
-    await loadTopVotedQuests();
     renderShelf();
     renderEraCounts();
+    loadTopVotedQuests();
   } catch (error) {
     console.error(error);
     document.querySelectorAll("[data-error]").forEach(el => el.textContent = "The shelf is temporarily unavailable.");

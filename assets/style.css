@@ -114,5 +114,5 @@ h1 span,.section-head h2 span{color:var(--red2);text-shadow:0 0 38px rgba(230,57
 @media(max-width:650px){.ms-nav,.section-head{align-items:flex-start;flex-direction:column}.ms-links{width:100%}.feature-stack,.stats,.grid-4,.grid-3,.grid-2{grid-template-columns:1fr}.float-book,.float-book:nth-child(1),.float-book:nth-child(2),.float-book:nth-child(3){min-height:220px;transform:none}.cover{height:270px}}
 
 /* Dynamic Top Voted Quests */
-.vote-card .rank{margin-bottom:12px}
-.vote-card .btn{margin-top:10px}
+.vote-card h3{margin:0 0 8px;font-size:1.35rem;line-height:1.05;letter-spacing:-.05em}
+.vote-card p{margin:0 0 12px;color:var(--muted);line-height:1.45}
