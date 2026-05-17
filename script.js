@@ -1,6 +1,10 @@
 let books = [];
 let activeFilter = "all";
 
+const GOOGLE_SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/1kd9gestpjoV03IBcvCoEbTo93Ybknr-mm7wiQKLl8DI/export?format=csv&gid=0";
+const LOCAL_CSV_URL = "books.csv";
+const USE_GOOGLE_SHEET = true;
+
 const tierOrder = [
   { name: "Legendary Shelf", note: "Unforgettable / personal favourite" },
   { name: "Crown Worthy", note: "Excellent and strongly recommended" },
@@ -12,26 +16,32 @@ const tierOrder = [
 ];
 
 const bookGrid = document.getElementById("bookGrid");
+const currentGrid = document.getElementById("currentGrid");
 const tierBoard = document.getElementById("tierBoard");
 const searchInput = document.getElementById("bookSearch");
 const emptyState = document.getElementById("emptyState");
+const currentEmpty = document.getElementById("currentEmpty");
 const loadError = document.getElementById("loadError");
 
 const statBooks = document.getElementById("statBooks");
 const statReviewed = document.getElementById("statReviewed");
-const statTBR = document.getElementById("statTBR");
+const statCurrent = document.getElementById("statCurrent");
+const statPaused = document.getElementById("statPaused");
 
 async function loadBooks() {
   try {
-    const response = await fetch("books.csv?cacheBust=" + Date.now(), { cache: "no-store" });
+    const csvSource = USE_GOOGLE_SHEET ? GOOGLE_SHEET_CSV_URL : LOCAL_CSV_URL;
+    const separator = csvSource.includes("?") ? "&" : "?";
+    const response = await fetch(csvSource + separator + "cacheBust=" + Date.now(), { cache: "no-store" });
 
     if (!response.ok) {
-      throw new Error("books.csv could not be loaded");
+      throw new Error("Shelf could not be loaded");
     }
 
     const text = await response.text();
     books = parseCSV(text);
 
+    renderCurrentReads();
     renderBooks();
     renderTiers();
     updateStats();
@@ -96,15 +106,14 @@ function normalizeBookRow(row) {
     ISBN: cleanISBN(row.ISBN || ""),
     CoverURL: row.CoverURL || "",
     CoverStyle: row.CoverStyle || "red",
+    Series: row.Series || "",
     Subgenre: row.Subgenre || "Fantasy",
-    OverallRating: row.OverallRating || "0",
-    Worldbuilding: row.Worldbuilding || "",
-    Characters: row.Characters || "",
-    MagicSystem: row.MagicSystem || "",
-    Pacing: row.Pacing || "",
-    EmotionalImpact: row.EmotionalImpact || "",
+    PublicRating: row.PublicRating || "",
+    MythShelfScore: row.MythShelfScore || "0",
     Tier: row.Tier || "Unopened Portal",
     ReviewStatus: row.ReviewStatus || "TBR",
+    ReadingFormat: row.ReadingFormat || "",
+    ReadingProgress: row.ReadingProgress || "",
     Tags: row.Tags || "",
     ShortHook: row.ShortHook || "",
     ReviewLink: row.ReviewLink || ""
@@ -123,12 +132,19 @@ function getCoverURL(book) {
   }
 
   if (book.ISBN) {
-    // Automatic cover lookup through Open Library's public cover service.
-    // Size options: S, M, L. L gives the largest available cover.
     return "https://covers.openlibrary.org/b/isbn/" + encodeURIComponent(book.ISBN) + "-L.jpg";
   }
 
   return "";
+}
+
+function renderCurrentReads() {
+  const currentReads = books.filter(book =>
+    String(book.ReviewStatus || "").toLowerCase().includes("currently reading")
+  );
+
+  currentGrid.innerHTML = currentReads.map(book => bookCardHTML(book, true)).join("");
+  currentEmpty.style.display = currentReads.length ? "none" : "block";
 }
 
 function renderBooks() {
@@ -136,16 +152,7 @@ function renderBooks() {
   let visibleCount = 0;
 
   bookGrid.innerHTML = books.map(book => {
-    const combined = [
-      book.Title,
-      book.Author,
-      book.ISBN,
-      book.Subgenre,
-      book.Tier,
-      book.ReviewStatus,
-      book.Tags,
-      book.ShortHook
-    ].join(" ").toLowerCase();
+    const combined = searchableText(book);
 
     const matchesFilter =
       activeFilter === "all" ||
@@ -157,56 +164,118 @@ function renderBooks() {
     const isVisible = matchesFilter && matchesSearch;
     if (isVisible) visibleCount++;
 
-    const coverURL = getCoverURL(book);
-    const hasCoverURL = coverURL.length > 0;
-    const coverStyle = hasCoverURL
-      ? `style="background-image:url('${escapeAttribute(coverURL)}')"`
-      : "";
-
-    const reviewLink = String(book.ReviewLink || "").trim();
-
-    return `
-      <article class="book-card" style="display:${isVisible ? "block" : "none"}">
-        <div class="book-cover ${hasCoverURL ? "has-image" : coverClass(book.CoverStyle)}" ${coverStyle}>
-          <small>${escapeHTML(book.Subgenre || "Fantasy")}</small>
-          <strong>${escapeHTML(book.Title)}</strong>
-        </div>
-
-        <div class="book-body">
-          <h3>${escapeHTML(book.Title)}</h3>
-          <p class="author">${escapeHTML(book.Author)}</p>
-
-          <div class="tier-pill">${escapeHTML(book.Tier || "Unranked")}</div>
-
-          <div class="tags">
-            ${tagHTML(book.Tags)}
-          </div>
-
-          <div class="rating-line">
-            <span>${starsFromRating(book.OverallRating)}</span>
-            <span>${book.OverallRating && book.OverallRating !== "0" ? escapeHTML(book.OverallRating) : escapeHTML(book.ReviewStatus || "TBR")}</span>
-          </div>
-
-          ${scoreHTML(book)}
-
-          <p class="review-note">${escapeHTML(book.ShortHook)}</p>
-
-          ${
-            reviewLink && reviewLink !== "#"
-            ? `<a class="review-link" href="${escapeAttribute(reviewLink)}">Read review →</a>`
-            : ``
-          }
-        </div>
-      </article>
-    `;
+    return bookCardHTML(book, false, isVisible);
   }).join("");
 
   emptyState.style.display = visibleCount === 0 ? "block" : "none";
 }
 
+function bookCardHTML(book, featured = false, isVisible = true) {
+  const coverURL = getCoverURL(book);
+  const hasCoverURL = coverURL.length > 0;
+  const coverStyle = hasCoverURL
+    ? `style="background-image:url('${escapeAttribute(coverURL)}')"`
+    : "";
+
+  const reviewLink = String(book.ReviewLink || "").trim();
+  const linkHTML = reviewLink && reviewLink !== "#"
+    ? `<a class="review-link" href="${escapeAttribute(reviewLink)}">Read review →</a>`
+    : "";
+
+  const seriesHTML = book.Series
+    ? `<p class="author">${escapeHTML(book.Author)} · ${escapeHTML(book.Series)}</p>`
+    : `<p class="author">${escapeHTML(book.Author)}</p>`;
+
+  return `
+    <article class="book-card ${featured ? "featured-card" : ""}" style="display:${isVisible ? "block" : "none"}">
+      <div class="book-cover ${hasCoverURL ? "has-image" : coverClass(book.CoverStyle)}" ${coverStyle}>
+        <small>${escapeHTML(book.Subgenre || "Fantasy")}</small>
+        <strong>${escapeHTML(book.Title)}</strong>
+      </div>
+
+      <div class="book-body">
+        <h3>${escapeHTML(book.Title)}</h3>
+        ${seriesHTML}
+
+        <div class="tier-pill">${escapeHTML(book.Tier || "Unranked")}</div>
+
+        ${formatHTML(book)}
+
+        ${ratingHTML(book)}
+
+        <div class="tags">
+          ${tagHTML(book.Tags)}
+        </div>
+
+        <p class="review-note">${escapeHTML(book.ShortHook)}</p>
+
+        ${linkHTML}
+      </div>
+    </article>
+  `;
+}
+
+function ratingHTML(book) {
+  const items = [];
+
+  if (book.PublicRating) {
+    items.push(`<span class="rating-pill public">Reader rating: ${escapeHTML(book.PublicRating)}</span>`);
+  }
+
+  if (book.MythShelfScore && book.MythShelfScore !== "0") {
+    items.push(`<span class="rating-pill personal">MythShelf: ${escapeHTML(book.MythShelfScore)}/5</span>`);
+  }
+
+  if (!items.length) return "";
+
+  return `<div class="rating-row">${items.join("")}</div>`;
+}
+
+function formatHTML(book) {
+  const items = [];
+
+  if (book.ReviewStatus) items.push(book.ReviewStatus);
+  if (book.ReadingFormat) items.push(book.ReadingFormat);
+  if (book.ReadingProgress) items.push(book.ReadingProgress);
+
+  if (!items.length) return "";
+
+  return `
+    <div class="format-row">
+      ${items.map(item => `<span class="format-pill">${escapeHTML(item)}</span>`).join("")}
+    </div>
+  `;
+}
+
+function searchableText(book) {
+  return [
+    book.Title,
+    book.Author,
+    book.ISBN,
+    book.Series,
+    book.Subgenre,
+    book.PublicRating,
+    book.MythShelfScore,
+    book.Tier,
+    book.ReviewStatus,
+    book.ReadingFormat,
+    book.ReadingProgress,
+    book.Tags,
+    book.ShortHook
+  ].join(" ").toLowerCase();
+}
+
 function renderTiers() {
   tierBoard.innerHTML = tierOrder.map(tier => {
     const tierBooks = books.filter(book => String(book.Tier || "").trim() === tier.name);
+    const booksHTML = tierBooks.length
+      ? tierBooks.map(book => `
+          <div class="mini-book ${miniClass(book.CoverStyle)}">
+            <strong>${escapeHTML(book.Title)}</strong>
+            <span>${escapeHTML(book.Author)}</span>
+          </div>
+        `).join("")
+      : `<span style="color: var(--muted);">No books here yet.</span>`;
 
     return `
       <div class="tier-row">
@@ -216,16 +285,7 @@ function renderTiers() {
         </div>
 
         <div class="tier-books">
-          ${
-            tierBooks.length
-            ? tierBooks.map(book => `
-                <div class="mini-book ${miniClass(book.CoverStyle)}">
-                  <strong>${escapeHTML(book.Title)}</strong>
-                  <span>${escapeHTML(book.Author)}</span>
-                </div>
-              `).join("")
-            : `<span style="color: var(--muted);">No books here yet.</span>`
-          }
+          ${booksHTML}
         </div>
       </div>
     `;
@@ -233,18 +293,24 @@ function renderTiers() {
 }
 
 function updateStats() {
-  const reviewed = books.filter(book =>
-    String(book.ReviewStatus || "").toLowerCase().includes("reviewed")
+  const reviewed = books.filter(book => {
+    const status = String(book.ReviewStatus || "").toLowerCase();
+    return status.includes("reviewed") || status.includes("finished");
+  }).length;
+
+  const current = books.filter(book =>
+    String(book.ReviewStatus || "").toLowerCase().includes("currently reading")
   ).length;
 
-  const tbr = books.filter(book => {
+  const paused = books.filter(book => {
     const status = String(book.ReviewStatus || "").toLowerCase();
-    return status.includes("tbr") || status.includes("suggested") || status.includes("reading");
+    return status.includes("paused") || status.includes("stopped") || status.includes("dnf");
   }).length;
 
   statBooks.textContent = books.length;
   statReviewed.textContent = reviewed;
-  statTBR.textContent = tbr;
+  statCurrent.textContent = current;
+  statPaused.textContent = paused;
 }
 
 function resetFilters() {
@@ -256,13 +322,6 @@ function resetFilters() {
   });
 
   renderBooks();
-}
-
-function starsFromRating(rating) {
-  const value = parseFloat(rating || "0");
-  if (!value) return "TBR";
-  const rounded = Math.max(0, Math.min(5, Math.round(value)));
-  return "★★★★★".slice(0, rounded) + "☆☆☆☆☆".slice(0, 5 - rounded);
 }
 
 function coverClass(style) {
@@ -288,28 +347,6 @@ function tagHTML(tags) {
     .slice(0, 4)
     .map(tag => `<span class="tag">${escapeHTML(tag)}</span>`)
     .join("");
-}
-
-function scoreHTML(book) {
-  const scores = [
-    ["World", book.Worldbuilding],
-    ["Characters", book.Characters],
-    ["Magic", book.MagicSystem],
-    ["Pacing", book.Pacing]
-  ].filter(item => item[1] && item[1] !== "0");
-
-  if (!scores.length) return "";
-
-  return `
-    <div class="score-grid">
-      ${scores.map(item => `
-        <div class="score-item">
-          <strong>${escapeHTML(item[0])}</strong>
-          ${escapeHTML(item[1])}/5
-        </div>
-      `).join("")}
-    </div>
-  `;
 }
 
 function escapeHTML(value) {

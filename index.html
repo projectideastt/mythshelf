@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="MythShelf is a personal fantasy reading blog with reviews, tiers, writing notes, and reader suggestions." />
+  <meta name="description" content="MythShelf is a personal fantasy reading journal featuring public reader ratings, personal endorsements, tiers, and story reflections." />
   <title>MythShelf | Fantasy Reviews & Reading Tiers</title>
   <link rel="stylesheet" href="style.css" />
 </head>
@@ -18,7 +18,8 @@
         </a>
 
         <div class="ms-links" aria-label="Main navigation">
-          <a href="#gallery">Gallery</a>
+          <a href="#currently-reading">Currently Reading</a>
+          <a href="#gallery">Shelf</a>
           <a href="#tiers">Tier List</a>
           <a href="#writing">Writing</a>
           <a href="#suggest">Suggest</a>
@@ -27,19 +28,19 @@
 
       <header class="hero" id="top">
         <div>
-          <div class="eyebrow">✦ Fantasy reviews, tier lists and personal reading notes</div>
+          <div class="eyebrow">✦ Fantasy reviews, endorsements and story notes</div>
 
           <h1>Open the shelf. <span>Enter the myth.</span></h1>
 
           <p>
-            MythShelf is a personal fantasy reading blog for book reviews, cover browsing,
-            personal rankings, worldbuilding notes and original writing. Browse by mood,
-            magic, trope, subgenre and reading experience.
+            A personal fantasy reading journal for books that shaped, challenged, entertained
+            or haunted me. Browse the shelf by series, subgenre, public rating, personal endorsement,
+            reading status, format and mood.
           </p>
 
           <div class="hero-actions">
-            <a href="#gallery" class="btn btn-primary">Browse the gallery</a>
-            <a href="#suggest" class="btn btn-secondary">Suggest a book</a>
+            <a href="#currently-reading" class="btn btn-primary">Currently reading</a>
+            <a href="#gallery" class="btn btn-secondary">Browse the shelf</a>
           </div>
         </div>
 
@@ -47,17 +48,17 @@
           <div class="stacked-covers">
             <div class="cover-float">
               <small>Legendary Shelf</small>
-              <strong>The Blood Crown</strong>
+              <strong>Red Rising</strong>
             </div>
 
             <div class="cover-float">
-              <small>Mythic Fantasy</small>
-              <strong>Forest of the Old Gods</strong>
+              <small>Epic Fantasy</small>
+              <strong>The Stormlight Archive</strong>
             </div>
 
             <div class="cover-float">
-              <small>Unopened Portal</small>
-              <strong>Empire of Ash & Star</strong>
+              <small>Currently Reading</small>
+              <strong>The Name of the Wind</strong>
             </div>
           </div>
         </div>
@@ -69,53 +70,67 @@
           <span>Books on the shelf</span>
         </div>
         <div class="stat">
-          <strong>7</strong>
-          <span>Personal tiers</span>
-        </div>
-        <div class="stat">
           <strong id="statReviewed">0</strong>
-          <span>Reviewed books</span>
+          <span>Reviewed / finished</span>
         </div>
         <div class="stat">
-          <strong id="statTBR">0</strong>
-          <span>TBR / suggested</span>
+          <strong id="statCurrent">0</strong>
+          <span>Currently reading</span>
+        </div>
+        <div class="stat">
+          <strong id="statPaused">0</strong>
+          <span>Paused journeys</span>
+        </div>
+      </section>
+
+      <section id="currently-reading">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">Now on the table</div>
+            <h2>Currently reading.</h2>
+          </div>
+          <p>
+            The books I am actively moving through, whether by physical copy,
+            audiobook, ebook or a mix of formats.
+          </p>
+        </div>
+
+        <div class="book-grid featured-grid" id="currentGrid"></div>
+
+        <div class="empty-state" id="currentEmpty">
+          No current reads are listed right now.
         </div>
       </section>
 
       <section id="gallery">
         <div class="section-head">
           <div>
-            <div class="eyebrow">The cover gallery</div>
-            <h2>Filter the shelf.</h2>
+            <div class="eyebrow">The shelf</div>
+            <h2>Browse the books.</h2>
           </div>
           <p>
-            The public shelf loads from <code>books.csv</code>. Search by title, author,
-            subgenre, tier, review status or tag.
+            A growing record of finished books, paused journeys and works still waiting
+            on the shelf.
           </p>
-        </div>
-
-        <div class="notice">
-          <strong>How to update:</strong>
-          edit <code>books.csv</code> in GitHub. If you add a <code>CoverURL</code>, that image will display.
-          If you leave <code>CoverURL</code> blank but add an <code>ISBN</code>, the site will try to load a cover automatically.
         </div>
 
         <div class="controls">
           <div class="search-row">
-            <input id="bookSearch" type="search" placeholder="Search title, author, trope, tier, status or subgenre..." />
+            <input id="bookSearch" type="search" placeholder="Search title, author, series, tier, status, format or tag..." />
             <button class="btn btn-primary" id="resetBtn" type="button">Reset</button>
           </div>
 
           <div class="filter-row" aria-label="Book filters">
             <button class="filter-btn active" data-filter="all" type="button">All</button>
-            <button class="filter-btn" data-filter="Dark Fantasy" type="button">Dark Fantasy</button>
+            <button class="filter-btn" data-filter="Currently Reading" type="button">Currently Reading</button>
+            <button class="filter-btn" data-filter="Reviewed" type="button">Finished</button>
+            <button class="filter-btn" data-filter="Paused" type="button">Paused</button>
+            <button class="filter-btn" data-filter="Stopped" type="button">Stopped</button>
+            <button class="filter-btn" data-filter="Legendary Shelf" type="button">Legendary Shelf</button>
             <button class="filter-btn" data-filter="Epic Fantasy" type="button">Epic Fantasy</button>
-            <button class="filter-btn" data-filter="Cozy Fantasy" type="button">Cozy Fantasy</button>
-            <button class="filter-btn" data-filter="Mythic Fantasy" type="button">Mythic Fantasy</button>
-            <button class="filter-btn" data-filter="Romantasy" type="button">Romantasy</button>
-            <button class="filter-btn" data-filter="Reviewed" type="button">Reviewed</button>
-            <button class="filter-btn" data-filter="TBR" type="button">TBR</button>
-            <button class="filter-btn" data-filter="Suggested" type="button">Suggested</button>
+            <button class="filter-btn" data-filter="Sci-Fantasy" type="button">Sci-Fantasy</button>
+            <button class="filter-btn" data-filter="Audiobook" type="button">Audiobook</button>
+            <button class="filter-btn" data-filter="Physical Book" type="button">Physical Book</button>
           </div>
         </div>
 
@@ -126,7 +141,7 @@
         </div>
 
         <div class="empty-state" id="loadError">
-          The shelf could not load <code>books.csv</code>. Check that the file exists in the repository root.
+          MythShelf is having trouble loading the shelf right now.
         </div>
       </section>
 
@@ -134,11 +149,11 @@
         <div class="section-head">
           <div>
             <div class="eyebrow">Personal ranking</div>
-            <h2>My experience tier list.</h2>
+            <h2>Experience tier list.</h2>
           </div>
           <p>
-            These tiers are not universal literary judgments. They reflect how strongly
-            each book connected with me, stayed with me, or shaped my imagination.
+            These tiers reflect how strongly each book connected with me, stayed with me,
+            or shaped my imagination.
           </p>
         </div>
 
@@ -149,8 +164,8 @@
         <div class="panel">
           <h3>Original writing</h3>
           <p>
-            MythShelf can also hold your own fiction, worldbuilding notes, myth fragments,
-            character sketches and essays on storytelling.
+            MythShelf is also a home for fiction fragments, worldbuilding notes,
+            mythic ideas and essays on storytelling.
           </p>
 
           <div class="panel-list">
@@ -164,14 +179,15 @@
         <div class="panel">
           <h3>Reading paths</h3>
           <p>
-            Curated paths help readers move through the shelf without being overwhelmed.
+            Some books are quests. Some are storms. Some are doors that open only
+            when you are ready for them.
           </p>
 
           <div class="panel-list">
-            <div>Start here: beginner-friendly fantasy</div>
-            <div>Dark fantasy without total despair</div>
-            <div>Fantasy beyond medieval Europe</div>
-            <div>Books that changed how I think about worldbuilding</div>
+            <div>Books that stayed with me after the final page</div>
+            <div>Series built on empires, rebellion and consequence</div>
+            <div>Fantasy worlds where magic has rules and costs</div>
+            <div>Paused journeys that may call again later</div>
           </div>
         </div>
       </section>
@@ -183,14 +199,12 @@
             <h2>Suggest a book.</h2>
           </div>
           <p>
-            Readers can recommend fantasy novels, hidden gems, Caribbean speculative works,
-            or strange mythic stories for the shelf.
+            Recommend a fantasy novel, hidden gem, Caribbean speculative work,
+            or strange mythic story for the shelf.
           </p>
         </div>
 
         <div class="panel">
-          <!-- Static version:
-               Replace this form with Google Forms, Formspree, Netlify Forms, Tally, Airtable, or another backend later. -->
           <form class="suggest-form" id="suggestForm">
             <div class="form-row">
               <input type="text" id="suggestTitle" placeholder="Book title" required />
@@ -206,6 +220,7 @@
                 <option>Cozy Fantasy</option>
                 <option>Romantasy</option>
                 <option>Caribbean / Global Fantasy</option>
+                <option>Science Fantasy</option>
                 <option>Other Speculative Fiction</option>
               </select>
 
@@ -217,15 +232,15 @@
             <button class="btn btn-green" type="submit">Send suggestion</button>
 
             <div class="form-message" id="formMessage">
-              Portal opened. On GitHub Pages, this is a demo message. Connect this form to Google Forms, Formspree, Netlify Forms, Tally, Airtable, or another service to collect real submissions.
+              Portal opened. Thank you for the suggestion.
             </div>
           </form>
         </div>
       </section>
 
       <p class="footer-note">
-        MythShelf — a personal fantasy review blog with CSV-powered book cards,
-        personal tiers, original writing space and reader suggestions.
+        MythShelf — a personal shelf of fantasy, science fantasy, mythic worlds,
+        unfinished quests and stories still calling from the margins.
       </p>
     </div>
   </main>
