@@ -1,6 +1,6 @@
-# MythShelf Public Website
+# Arcanium Index Public Website
 
-Public-facing GitHub Pages version of MythShelf.
+Public-facing GitHub Pages version of Arcanium Index.
 
 ## Pages
 
@@ -9,6 +9,16 @@ Public-facing GitHub Pages version of MythShelf.
 - `wish-shelf.html`
 - `writing.html`
 
+## Live data
+
+The public shelf reads from:
+
+`https://docs.google.com/spreadsheets/d/1kd9gestpjoV03IBcvCoEbTo93Ybknr-mm7wiQKLl8DI/export?format=csv&gid=0`
+
+The forms submit to:
+
+`https://script.google.com/macros/s/AKfycbx9A-7XQnXYmffFZso8-eFXh8NqgxiLjqU1TPWwr3Zoh5HqXJTBhGr31hyCe4ASGidc/exec`
+
 ## Icon
 
 The site icon is stored as:
@@ -16,7 +26,7 @@ The site icon is stored as:
 `assets/mythicshelf-01.ico`
 
 
-## Shelf Recommends page
+## Reading Paths page
 
 New page added: `recommends.html`
 
@@ -25,7 +35,7 @@ Files added:
 - `assets/recommends.css`
 - `assets/recommends.js`
 
-The page uses the same Google Sheet CSV as the rest of MythShelf, with `books.csv` as a local fallback. It supports:
+The page uses the same Google Sheet CSV as the rest of Arcanium Index, with `books.csv` as a local fallback. It supports:
 - up to 3 selected archetypes;
 - up to 9 archetype-blend recommendations;
 - archetype constellation SVG shapes;
@@ -44,8 +54,8 @@ Navigation has been updated to include `Recommends`.
 
 ## Pages
 - `index.html` — homepage with dynamic Top Voted Quests
-- `about.html` — About MythShelf, featuring the logo crest
-- `shelf.html` — Full Shelf
-- `recommends.html` — Shelf Recommends tools
-- `wish-shelf.html` — Wish Shelf voting/suggestions
+- `about.html` — About Arcanium Index, featuring the logo crest
+- `shelf.html` — The Index
+- `recommends.html` — Reading Paths tools
+- `wish-shelf.html` — Wish Vault voting/suggestions
 - `writing.html` — Writing shelf

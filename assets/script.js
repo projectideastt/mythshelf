@@ -94,7 +94,7 @@ function bookCard(book, options = {}) {
   const coverURL = getCoverURL(book);
   const background = coverURL ? `style="background-image:url('${esc(coverURL)}')"` : "";
   const rank = options.rank || book.TopPickRank || "";
-  const score = book.MythShelfScore && book.MythShelfScore !== "0" ? `MythShelf ${esc(book.MythShelfScore)}/5` : esc(book.ReviewStatus || "TBR");
+  const score = book.MythShelfScore && book.MythShelfScore !== "0" ? `Index ${esc(book.MythShelfScore)}/5` : esc(book.ReviewStatus || "TBR");
   const era = book.ReadingEra || "Shelf";
 
   return `
@@ -205,7 +205,7 @@ function renderEraCounts() {
   });
 }
 
-async function submitToMythShelf(payload) {
+async function submitToArcanium(payload) {
   try {
     // Google Apps Script web apps can be awkward with browser CORS.
     // no-cors still sends the payload to the script, but the page cannot read the JSON response.
@@ -214,7 +214,7 @@ async function submitToMythShelf(payload) {
       mode: "no-cors",
       body: JSON.stringify(payload)
     });
-    return { ok: true, message: "Sent to MythShelf." };
+    return { ok: true, message: "Sent to Arcanium Index." };
   } catch (error) {
     return { ok: false, message: "The shelf could not be reached. Please try again." };
   }
@@ -231,7 +231,7 @@ async function loadTopVotedQuests() {
     const data = await response.json();
 
     if (!data.ok || !Array.isArray(data.votes) || data.votes.length === 0) {
-      grid.innerHTML = `<article class="panel"><h3>No votes yet</h3><p>Cast the first vote on the Wish Shelf.</p><a class="btn btn-primary" href="wish-shelf.html">Vote the Next Quest</a></article>`;
+      grid.innerHTML = `<article class="panel"><h3>No votes yet</h3><p>Cast the first vote in the Wish Vault.</p><a class="btn btn-primary" href="wish-shelf.html">Vote the Next World</a></article>`;
       return;
     }
 
@@ -258,14 +258,14 @@ function wireForms() {
     newsletter.addEventListener("submit", async event => {
       event.preventDefault();
       const message = document.getElementById("newsletterMessage");
-      message.textContent = "Joining the Dispatch...";
-      const result = await submitToMythShelf({
+      message.textContent = "Joining the newsletter...";
+      const result = await submitToArcanium({
         action: "newsletter",
         email: newsletter.email.value,
         name: newsletter.name.value,
-        source: "MythShelf Dispatch"
+        source: "Arcanium Index Newsletter"
       });
-      message.textContent = result.ok ? "You have joined The MythShelf Dispatch." : result.message;
+      message.textContent = result.ok ? "You have joined the Arcanium Index newsletter." : result.message;
       if (result.ok) newsletter.reset();
     });
   }
@@ -276,7 +276,7 @@ function wireForms() {
       event.preventDefault();
       const message = document.getElementById("suggestMessage");
       message.textContent = "Sending suggestion...";
-      const result = await submitToMythShelf({
+      const result = await submitToArcanium({
         action: "suggest",
         bookTitle: suggest.bookTitle.value,
         author: suggest.author.value,
@@ -296,14 +296,14 @@ function wireForms() {
       event.preventDefault();
       const message = document.getElementById("voteMessage");
       message.textContent = "Casting vote...";
-      const result = await submitToMythShelf({
+      const result = await submitToArcanium({
         action: "vote",
         bookTitle: vote.bookTitle.value,
         author: vote.author.value,
         voterName: vote.voterName.value,
         reason: vote.reason.value
       });
-      message.textContent = result.ok ? "Your vote was sent to the Wish Shelf." : result.message;
+      message.textContent = result.ok ? "Your vote was sent to the Wish Vault." : result.message;
       if (result.ok) {
         vote.reset();
         setTimeout(loadTopVotedQuests, 1200);
@@ -312,7 +312,7 @@ function wireForms() {
   }
 }
 
-async function initMythShelf() {
+async function initArcanium() {
   try {
     await loadBooks();
     renderHeroCovers();
@@ -342,4 +342,4 @@ async function initMythShelf() {
   });
 }
 
-initMythShelf();
+initArcanium();
