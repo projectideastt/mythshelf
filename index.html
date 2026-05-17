@@ -1,156 +1,178 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="MythShelf is a personal reading archive for fantasy, science fiction, classics, local lore and open portals." />
-  <title>Home | MythShelf</title>
-  <link rel="icon" href="assets/mythicshelf-01.ico" sizes="any" />
-  <link rel="shortcut icon" href="assets/mythicshelf-01.ico" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MythShelf | Fantasy Reviews & Reading Tiers</title>
+  <meta name="description" content="A personal shelf of fantasy, science fantasy, mythic worlds, unfinished quests and stories still calling from the margins." />
   <link rel="stylesheet" href="assets/style.css" />
 </head>
 <body>
-  <main class="ms-site">
-    <div class="ms-shell">
-      
-<nav class="ms-nav">
-  <a class="ms-brand" href="index.html">
-    <img class="ms-logo-img" src="assets/mythicshelf-01.png" alt="MythShelf logo" />
-    <span>MythShelf</span>
-  </a>
-  <div class="ms-links">
-    <a href="index.html">Home</a>
-    <a href="shelf.html">Full Shelf</a>
-    <a href="recommends.html">Recommends</a>
-    <a href="wish-shelf.html">Wish Shelf</a>
-    <a href="writing.html">Writing</a>
-  </div>
-</nav>
+  <div class="site-shell">
+    <header class="nav-wrap">
+      <a class="brand" href="index.html" aria-label="MythShelf home">
+        <span class="brand-mark">◆</span>
+        <span>MythShelf</span>
+      </a>
 
-      
-<header class="hero">
-  <div>
-    <div class="eyebrow">✦ Fantasy, sci-fi, classics and unfinished portals</div>
-    <h1>Open the shelf. <span>Enter the myth.</span></h1>
-    <p>A personal reading archive for books that shaped, challenged, entertained or haunted me — from first pages to chosen quests, open portals, local shelves and stories still calling from the margins.</p>
-    <div class="actions">
-      <a class="btn btn-primary" href="#top10">View Top 10</a>
-      <a class="btn btn-secondary" href="wish-shelf.html">Vote the Next Quest</a>
-    </div>
+      <nav class="top-nav" aria-label="Main navigation">
+        <a href="#shelf">Shelf</a>
+        <a href="#top-voted">Top Voted</a>
+        <a href="recommends.html">Shelf Recommends</a>
+        <a href="#wish">Wish Shelf</a>
+        <a href="#writing">Writing</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero-section">
+        <div class="hero-copy">
+          <p class="eyebrow">✦ Fantasy reviews, endorsements and story notes</p>
+          <h1>Open the shelf. <span>Enter the myth.</span></h1>
+          <p class="hero-lede">
+            A personal fantasy reading journal for books that shaped, challenged, entertained or haunted me. Browse the shelf by series, subgenre, endorsement, reading status, format and mood.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#shelf">Browse the shelf</a>
+            <a class="btn btn-secondary" href="recommends.html">Use Shelf Recommends</a>
+          </div>
+        </div>
+
+        <aside class="hero-card" aria-label="Shelf stats">
+          <div class="stat-grid">
+            <div class="stat-card"><strong id="bookCount">—</strong><span>Books on the shelf</span></div>
+            <div class="stat-card"><strong id="reviewedCount">—</strong><span>Reviewed / finished</span></div>
+            <div class="stat-card"><strong id="readingCount">—</strong><span>Currently reading</span></div>
+            <div class="stat-card"><strong id="pausedCount">—</strong><span>Paused journeys</span></div>
+          </div>
+        </aside>
+      </section>
+
+      <section class="feature-band" aria-label="Shelf recommendation tools">
+        <div>
+          <p class="eyebrow">New tool</p>
+          <h2>Shelf Recommends</h2>
+          <p>Use archetypes or book-to-book pathways to let the shelf suggest what to read next.</p>
+        </div>
+        <a class="btn btn-primary" href="recommends.html">Open the tools</a>
+      </section>
+
+      <section class="top-voted-quests" id="top-voted">
+        <div class="section-head compact">
+          <div>
+            <p class="eyebrow">Wish Shelf</p>
+            <h2>Top Voted <span>Quests.</span></h2>
+          </div>
+          <div class="info-card">
+            <strong>Reader-powered</strong>
+            <p>These books are ranked dynamically by Wish Shelf votes.</p>
+          </div>
+        </div>
+
+        <div class="top-votes-grid" id="topVotesGrid">
+          <p class="loading-note">Loading top voted quests...</p>
+        </div>
+      </section>
+
+      <section class="shelf-section" id="shelf">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">The shelf</p>
+            <h2>Browse the <span>books.</span></h2>
+          </div>
+          <div class="info-card">
+            <strong>Live from the public sheet</strong>
+            <p>This section loads from the MythShelf CSV and can be filtered locally in the browser.</p>
+          </div>
+        </div>
+
+        <div class="filter-panel">
+          <input id="bookSearch" type="search" placeholder="Search title, author, series, tier, status, format or tag..." />
+          <div class="filter-buttons" aria-label="Quick filters">
+            <button class="filter-btn" data-filter="Currently Reading">Currently Reading</button>
+            <button class="filter-btn" data-filter="Finished">Finished</button>
+            <button class="filter-btn" data-filter="Paused">Paused</button>
+            <button class="filter-btn" data-filter="Legendary Shelf">Legendary Shelf</button>
+            <button class="filter-btn" data-filter="Epic Fantasy">Epic Fantasy</button>
+            <button class="filter-btn" data-filter="Audiobook">Audiobook</button>
+            <button class="filter-btn reset" data-filter="">Reset</button>
+          </div>
+        </div>
+
+        <div class="book-grid" id="bookGrid">
+          <p class="loading-note">Loading the shelf...</p>
+        </div>
+      </section>
+
+      <section class="wish-section" id="wish">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Open a portal</p>
+            <h2>Vote or <span>suggest.</span></h2>
+          </div>
+          <div class="info-card">
+            <strong>Wish Shelf</strong>
+            <p>Votes are saved into the Google Sheet through the Apps Script collector.</p>
+          </div>
+        </div>
+
+        <div class="form-grid">
+          <form class="myth-form" id="voteForm">
+            <h3>Vote for a quest</h3>
+            <label>Book title<input name="bookTitle" required /></label>
+            <label>Author<input name="author" /></label>
+            <label>Your name or nickname, optional<input name="voterName" /></label>
+            <label>Why should it rise?<textarea name="reason" rows="4"></textarea></label>
+            <button class="btn btn-primary" type="submit">Send vote</button>
+            <p class="form-status" id="voteStatus"></p>
+          </form>
+
+          <form class="myth-form" id="suggestForm">
+            <h3>Suggest a book</h3>
+            <label>Book title<input name="bookTitle" required /></label>
+            <label>Author<input name="author" required /></label>
+            <label>Series<input name="series" /></label>
+            <label>Genre / category<input name="genre" /></label>
+            <label>Why suggest this?<textarea name="why" rows="4"></textarea></label>
+            <label>Your name or nickname, optional<input name="suggestedBy" /></label>
+            <button class="btn btn-primary" type="submit">Send suggestion</button>
+            <p class="form-status" id="suggestStatus"></p>
+          </form>
+        </div>
+      </section>
+
+      <section class="newsletter-section" id="newsletter">
+        <div class="newsletter-card">
+          <div>
+            <p class="eyebrow">Newsletter</p>
+            <h2>Follow the shelf.</h2>
+            <p>Occasional notes on fantasy, horror, books, writing and story worlds.</p>
+          </div>
+          <form class="newsletter-form" id="newsletterForm">
+            <input name="email" type="email" placeholder="Email address" required />
+            <input name="name" type="text" placeholder="Name, optional" />
+            <button class="btn btn-primary" type="submit">Join</button>
+            <p class="form-status" id="newsletterStatus"></p>
+          </form>
+        </div>
+      </section>
+
+      <section class="writing-section" id="writing">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Original writing</p>
+            <h2>Stories from the <span>margins.</span></h2>
+          </div>
+          <div class="info-card"><strong>Coming later</strong><p>Fiction fragments, worldbuilding notes and mythic essays can live here.</p></div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>MythShelf — a personal shelf of fantasy, science fantasy, mythic worlds, unfinished quests and stories still calling from the margins.</p>
+    </footer>
   </div>
 
-  <div class="hero-panel">
-    <div class="feature-stack">
-      <div class="float-book" id="heroTopPick">
-        <small>Top Pick</small>
-        <strong>Golden Son</strong>
-      </div>
-      <div class="float-book" id="heroChosenQuest">
-        <small>Chosen Quest</small>
-        <strong>The Way of Kings</strong>
-      </div>
-      <div class="float-book" id="heroOpenPortal">
-        <small>Open Portal</small>
-        <strong>The Name of the Wind</strong>
-      </div>
-    </div>
-  </div>
-</header>
-
-<section class="stats">
-  <div class="stat"><strong>200±</strong><span>Estimated books remembered</span></div>
-  <div class="stat"><strong data-stat="logged">—</strong><span>Books currently logged</span></div>
-  <div class="stat"><strong data-stat="reviewed">—</strong><span>Reviewed / finished</span></div>
-  <div class="stat"><strong>3</strong><span>Reading eras</span></div>
-</section>
-
-<section>
-  <div class="section-head">
-    <div><div class="eyebrow">Now on the table</div><h2>Current <span>portal.</span></h2></div>
-    <p>The book currently open, paused beside the shelf, or waiting to become the next quest.</p>
-  </div>
-  <div class="card-grid grid-4" id="currentGrid"></div>
-</section>
-
-<section id="top10">
-  <div class="section-head">
-    <div><div class="eyebrow">The short list</div><h2>Top 10 <span>recommended.</span></h2></div>
-    <p>Stories I would most actively point someone toward based on impact, memory, momentum and personal endorsement.</p>
-  </div>
-  <div class="carousel-wrap"><div class="carousel-track" id="top10Track"></div></div>
-</section>
-
-<section>
-  <div class="section-head">
-    <div><div class="eyebrow">Vote the next quest</div><h2>Wish <span>Shelf.</span></h2></div>
-    <p>Books waiting at the edge of the shelf. Help choose what moves closer to the reading queue.</p>
-  </div>
-  <div class="card-grid grid-3">
-    <article class="panel"><h3>The Blade Itself</h3><p>Joe Abercrombie · Grimdark Fantasy</p><div class="pill-row"><span class="pill status">Top Wish</span><span class="pill score">18 votes</span></div><a class="btn btn-primary" href="wish-shelf.html">Vote</a></article>
-    <article class="panel"><h3>The Silmarillion</h3><p>J. R. R. Tolkien · Mythic Fantasy</p><div class="pill-row"><span class="pill status">Mythic</span><span class="pill score">12 votes</span></div><a class="btn btn-primary" href="wish-shelf.html">Vote</a></article>
-    <article class="panel"><h3>Dune</h3><p>Frank Herbert · Science Fiction</p><div class="pill-row"><span class="pill blue-pill">Sci-Fi</span><span class="pill score">9 votes</span></div><a class="btn btn-primary" href="wish-shelf.html">Vote</a></article>
-  </div>
-</section>
-
-<section>
-  <div class="section-head">
-    <div><div class="eyebrow">Reading history</div><h2>Reading <span>eras.</span></h2></div>
-    <p>Three ways books entered the shelf: early discovery, chosen quests, and open portals.</p>
-  </div>
-  <div class="card-grid grid-3">
-    <article class="panel"><h3>First Pages</h3><p>School, library, borrowed books, childhood series and early reading memories.</p><div class="era-count" data-era-count="First Pages">—</div><a class="teaser-link" href="shelf.html">View First Pages →</a></article>
-    <article class="panel"><h3>Chosen Quests</h3><p>Books selected later through audiobooks, purchases, recommendations and deeper curiosity.</p><div class="era-count" data-era-count="Chosen Quests">—</div><a class="teaser-link" href="shelf.html">View Chosen Quests →</a></article>
-    <article class="panel"><h3>Open Portals</h3><p>Current reads, paused journeys, unfinished series and books waiting for the right season.</p><div class="era-count" data-era-count="Open Portals">—</div><a class="teaser-link" href="shelf.html">View Open Portals →</a></article>
-  </div>
-</section>
-
-<section>
-  <div class="section-head">
-    <div><div class="eyebrow">Island Shelves</div><h2>Local books and <span>lore.</span></h2></div>
-    <p>A small but meaningful place for Caribbean fiction, folklore, history, culture and non-fiction that shapes story and place.</p>
-  </div>
-  <div class="card-grid grid-3">
-    <article class="panel"><h3>Local Fiction</h3><p>Caribbean novels, short stories and speculative works that belong on the shelf.</p><div class="pill-row"><span class="pill status">Coming soon</span></div></article>
-    <article class="panel"><h3>Folklore and Myth</h3><p>Books and notes that connect local memory, oral tradition, monsters, spirits and mythic storytelling.</p><span class="pill blue-pill">Story fuel</span></article>
-    <article class="panel"><h3>Non-Fiction Roots</h3><p>History, geography, environment and culture books that inform original writing and worldbuilding.</p><span class="pill">Research shelf</span></article>
-  </div>
-</section>
-
-
-<section>
-  <div class="section-head">
-    <div><div class="eyebrow">Shelf recommendation tools</div><h2>Shelf <span>Recommends.</span></h2></div>
-    <p>Use archetype blends or book-to-book paths to let the shelf point you toward something to read.</p>
-  </div>
-  <div class="card-grid grid-2">
-    <article class="panel"><h3>Explore by Archetype</h3><p>Choose up to three story forces such as The Shadow, The Rebel or The Magician and find books where they overlap.</p><a class="btn btn-primary" href="recommends.html#archetypes">Use Archetypes</a></article>
-    <article class="panel"><h3>Explore by Book Path</h3><p>Start with any book and follow a changing path through series order, themes, mood and related shelf energy.</p><a class="btn btn-secondary" href="recommends.html#bookpaths">Use Book Paths</a></article>
-  </div>
-</section>
-
-<section>
-  <div class="section-head">
-    <div><div class="eyebrow">Letters from the shelf</div><h2>The MythShelf <span>Dispatch.</span></h2></div>
-    <p>Occasional notes on current reads, top recommendations, unfinished portals, voting results and original writing.</p>
-  </div>
-  <div class="card-grid grid-2">
-    <article class="panel">
-      <h3>Join the Dispatch</h3>
-      <p>A lightweight newsletter for reading updates, top shelf notes and writing notes.</p>
-      <form class="form" id="newsletterForm">
-        <input name="email" type="email" placeholder="Email address" required />
-        <input name="name" type="text" placeholder="Name or nickname, optional" />
-        <button class="btn btn-green" type="submit">Join the Dispatch</button>
-        <div class="form-message" id="newsletterMessage"></div>
-      </form>
-    </article>
-    <article class="panel"><h3>My Writing</h3><p>Story fragments, mythic ideas, Caribbean folklore notes, character sketches and worldbuilding still forming.</p><a class="btn btn-secondary" href="writing.html">Enter the Writing Shelf</a></article>
-  </div>
-</section>
-
-      <p class="footer">MythShelf — a personal shelf of fantasy, science fiction, classics, local lore, unfinished quests and stories still calling from the margins.</p>
-    </div>
-  </main>
   <script src="assets/script.js"></script>
 </body>
 </html>
