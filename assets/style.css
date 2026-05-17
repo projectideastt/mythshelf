@@ -23,7 +23,7 @@ body{margin:0;background:#050505;color:var(--cream);font-family:Inter,system-ui,
 .ms-shell{max-width:1180px;margin:0 auto;padding:28px 18px 80px}
 .ms-nav{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-bottom:42px}
 .ms-brand{display:flex;align-items:center;gap:12px;font-size:1.45rem;font-weight:950;letter-spacing:-.05em;text-decoration:none;color:var(--cream)}
-.ms-logo-img{width:44px;height:44px;border-radius:14px;object-fit:cover;border:1px solid var(--line);box-shadow:0 0 30px rgba(24,168,255,.24),0 0 34px rgba(46,204,113,.18)}
+.ms-logo-img{width:44px;height:44px;border-radius:14px;object-fit:contain;background:#050505;padding:3px;border:1px solid var(--line);box-shadow:0 0 30px rgba(24,168,255,.24),0 0 34px rgba(46,204,113,.18)}
 .ms-mark{width:44px;height:44px;border-radius:16px;display:grid;place-items:center;background:linear-gradient(135deg,rgba(46,204,113,.9),transparent 42%),linear-gradient(315deg,rgba(24,168,255,.9),transparent 40%),linear-gradient(135deg,var(--red),#050505 52%,var(--green));border:1px solid var(--line);box-shadow:0 0 30px rgba(24,168,255,.24),0 0 34px rgba(46,204,113,.18)}
 .ms-links{display:flex;flex-wrap:wrap;gap:8px}
 .ms-links a{color:var(--muted);text-decoration:none;padding:9px 12px;border-radius:999px;border:1px solid transparent;font-size:.88rem;font-weight:750}
