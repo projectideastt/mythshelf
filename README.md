@@ -1,41 +1,32 @@
-# MythShelf
+MythShelf Google Sheet setup
 
-MythShelf is a static public-facing fantasy reading journal.
+Keep your existing Google Sheet:
+https://docs.google.com/spreadsheets/d/1kd9gestpjoV03IBcvCoEbTo93Ybknr-mm7wiQKLl8DI/edit?gid=0#gid=0
 
-This version uses a simplified rating model:
-
-- `PublicRating` for Goodreads / reader / public ratings entered manually.
-- `MythShelfScore` for the personal endorsement score out of 5.
-- `Tier` for the experience-based reading tier.
-
-## Google Sheet Headers
-
-```csv
-Title,Author,ISBN,CoverURL,CoverStyle,Series,Subgenre,PublicRating,MythShelfScore,Tier,ReviewStatus,ReadingFormat,ReadingProgress,Tags,ShortHook,ReviewLink
-```
-
-## Live Data Source
-
-```text
+To keep the same CSV link, replace the contents of the first tab / gid=0 with books-replacement.csv.
+The website reads:
 https://docs.google.com/spreadsheets/d/1kd9gestpjoV03IBcvCoEbTo93Ybknr-mm7wiQKLl8DI/export?format=csv&gid=0
-```
 
-## Files
+Required tabs for Apps Script:
+Books
+WishShelf
+Votes
+Newsletter
+Suggestions
 
-```text
-index.html
-style.css
-script.js
-books.csv
-README.md
-```
+Newsletter headers:
+Timestamp,Email,Name,Source
 
-`books.csv` is included as a backup/sample. The live site is set to read from the Google Sheet in `script.js`.
+Votes headers:
+Timestamp,BookTitle,Author,VoterName,Reason
 
-## License
+Suggestions headers:
+Timestamp,BookTitle,Author,Series,Genre,WhySuggestThis,SuggestedBy,Status
 
-Code may be licensed under MIT.
+WishShelf headers:
+BookTitle,Author,Series,Genre,Status,VoteCount,WhyReadIt
 
-Original writing, reviews, ratings, tier lists and MythShelf branding are copyright © Ryan Seemungal unless otherwise stated.
-
-Book cover images remain the property of their respective rights holders.
+After deploying Apps Script:
+1. Open assets/script.js
+2. Find MYTHSHELF_APP_URL
+3. Paste your Web App URL between the quotes

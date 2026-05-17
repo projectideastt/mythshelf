@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="MythShelf is a personal reading archive for fantasy, science fiction, classics, local lore and open portals." />
+  <title>Full Shelf | MythShelf</title>
+  <link rel="stylesheet" href="assets/style.css" />
+</head>
+<body>
+  <main class="ms-site">
+    <div class="ms-shell">
+      
+<nav class="ms-nav">
+  <a class="ms-brand" href="index.html"><span class="ms-mark">◆</span><span>MythShelf</span></a>
+  <div class="ms-links">
+    <a href="index.html">Home</a>
+    <a href="shelf.html">Full Shelf</a>
+    <a href="wish-shelf.html">Wish Shelf</a>
+    <a href="writing.html">Writing</a>
+  </div>
+</nav>
+
+      
+<div class="eyebrow">The full archive</div>
+<h1>Browse the <span>full shelf.</span></h1>
+<p class="intro">Search, sort and filter the live MythShelf archive pulled from the Google Sheet.</p>
+
+<section class="stats">
+  <div class="stat"><strong data-stat="logged">—</strong><span>Books logged</span></div>
+  <div class="stat"><strong data-stat="reviewed">—</strong><span>Reviewed / finished</span></div>
+  <div class="stat"><strong data-stat="open">—</strong><span>Open portals</span></div>
+  <div class="stat"><strong>200±</strong><span>Estimated reading memory</span></div>
+</section>
+
+<section>
+  <div class="controls">
+    <div class="search-row">
+      <input id="shelfSearch" type="search" placeholder="Search title, author, series, era, tier, format or tag..." />
+      <select id="sortSelect">
+        <option value="series">Sort by: Series</option>
+        <option value="score">Sort by: MythShelf Score</option>
+        <option value="era">Sort by: Reading Era</option>
+        <option value="title">Sort by: Title A–Z</option>
+      </select>
+    </div>
+    <div class="chip-row">
+      <button class="chip active" data-filter="all">All</button>
+      <button class="chip" data-filter="TopPick Yes">Top Picks</button>
+      <button class="chip" data-filter="First Pages">First Pages</button>
+      <button class="chip" data-filter="Chosen Quests">Chosen Quests</button>
+      <button class="chip" data-filter="Open Portals">Open Portals</button>
+      <button class="chip" data-filter="Audiobook">Audiobook</button>
+      <button class="chip" data-filter="Classic">Classics</button>
+      <button class="chip" data-filter="Epic Fantasy">Epic Fantasy</button>
+      <button class="chip" data-filter="Series Memory">Series Memory</button>
+    </div>
+    <div class="chip-row">
+      <button class="chip" data-filter="Red Rising">Red Rising</button>
+      <button class="chip" data-filter="Stormlight">Stormlight</button>
+      <button class="chip" data-filter="Mistborn">Mistborn</button>
+      <button class="chip" data-filter="Wheel of Time">Wheel of Time</button>
+      <button class="chip" data-filter="Harry Potter">Harry Potter</button>
+      <button class="chip" data-filter="Percy Jackson">Percy Jackson</button>
+      <button class="chip" data-filter="Local">Local / Island Shelves</button>
+    </div>
+  </div>
+  <div data-error></div>
+  <div class="card-grid grid-4" id="shelfGrid"></div>
+</section>
+
+      <p class="footer">MythShelf — a personal shelf of fantasy, science fiction, classics, local lore, unfinished quests and stories still calling from the margins.</p>
+    </div>
+  </main>
+  <script src="assets/script.js"></script>
+</body>
+</html>
