@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="MythShelf is a personal fantasy reading blog with reviews, tiers, writing notes, and reader suggestions." />
+  <title>MythShelf | Fantasy Reviews & Reading Tiers</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <main class="mythshelf-site">
+    <div class="ms-wrap">
+      <nav class="ms-nav">
+        <a class="ms-brand" href="#top" aria-label="MythShelf home">
+          <span class="ms-mark">◆</span>
+          <span>MythShelf</span>
+        </a>
+
+        <div class="ms-links" aria-label="Main navigation">
+          <a href="#gallery">Gallery</a>
+          <a href="#tiers">Tier List</a>
+          <a href="#writing">Writing</a>
+          <a href="#suggest">Suggest</a>
+          <a href="#admin">Admin</a>
+        </div>
+      </nav>
+
+      <header class="hero" id="top">
+        <div>
+          <div class="eyebrow">✦ Fantasy reviews, tier lists and personal reading notes</div>
+
+          <h1>Open the shelf. <span>Enter the myth.</span></h1>
+
+          <p>
+            MythShelf is a personal fantasy reading blog for book reviews, cover browsing,
+            personal rankings, worldbuilding notes and original writing. Browse by mood,
+            magic, trope, subgenre and reading experience.
+          </p>
+
+          <div class="hero-actions">
+            <a href="#gallery" class="btn btn-primary">Browse the gallery</a>
+            <a href="#suggest" class="btn btn-secondary">Suggest a book</a>
+          </div>
+        </div>
+
+        <div class="hero-panel" aria-label="Featured fantasy shelf">
+          <div class="stacked-covers">
+            <div class="cover-float">
+              <small>Legendary Shelf</small>
+              <strong>The Blood Crown</strong>
+            </div>
+
+            <div class="cover-float">
+              <small>Mythic Fantasy</small>
+              <strong>Forest of the Old Gods</strong>
+            </div>
+
+            <div class="cover-float">
+              <small>Unopened Portal</small>
+              <strong>Empire of Ash & Star</strong>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <section class="stats" aria-label="Shelf statistics">
+        <div class="stat">
+          <strong id="statBooks">0</strong>
+          <span>Books on the shelf</span>
+        </div>
+        <div class="stat">
+          <strong>7</strong>
+          <span>Personal tiers</span>
+        </div>
+        <div class="stat">
+          <strong id="statReviewed">0</strong>
+          <span>Reviewed books</span>
+        </div>
+        <div class="stat">
+          <strong id="statTBR">0</strong>
+          <span>TBR / suggested</span>
+        </div>
+      </section>
+
+      <section id="gallery">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">The cover gallery</div>
+            <h2>Filter the shelf.</h2>
+          </div>
+          <p>
+            The public shelf loads from <code>books.csv</code>. Search by title, author,
+            subgenre, tier, review status or tag.
+          </p>
+        </div>
+
+        <div class="notice">
+          <strong>Repository mode:</strong>
+          update <code>books.csv</code> in GitHub to change the live shelf.
+          Keep the column names exactly as shown in the sample file.
+        </div>
+
+        <div class="controls">
+          <div class="search-row">
+            <input id="bookSearch" type="search" placeholder="Search title, author, trope, tier, status or subgenre..." />
+            <button class="btn btn-primary" id="resetBtn" type="button">Reset</button>
+          </div>
+
+          <div class="filter-row" aria-label="Book filters">
+            <button class="filter-btn active" data-filter="all" type="button">All</button>
+            <button class="filter-btn" data-filter="Dark Fantasy" type="button">Dark Fantasy</button>
+            <button class="filter-btn" data-filter="Epic Fantasy" type="button">Epic Fantasy</button>
+            <button class="filter-btn" data-filter="Cozy Fantasy" type="button">Cozy Fantasy</button>
+            <button class="filter-btn" data-filter="Mythic Fantasy" type="button">Mythic Fantasy</button>
+            <button class="filter-btn" data-filter="Romantasy" type="button">Romantasy</button>
+            <button class="filter-btn" data-filter="Reviewed" type="button">Reviewed</button>
+            <button class="filter-btn" data-filter="TBR" type="button">TBR</button>
+            <button class="filter-btn" data-filter="Suggested" type="button">Suggested</button>
+          </div>
+        </div>
+
+        <div class="book-grid" id="bookGrid"></div>
+
+        <div class="empty-state" id="emptyState">
+          No books matched that search or filter.
+        </div>
+
+        <div class="empty-state" id="loadError">
+          The shelf could not load <code>books.csv</code>. Check that the file exists in the repository root.
+        </div>
+      </section>
+
+      <section id="tiers">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">Personal ranking</div>
+            <h2>My experience tier list.</h2>
+          </div>
+          <p>
+            These tiers are not universal literary judgments. They reflect how strongly
+            each book connected with me, stayed with me, or shaped my imagination.
+          </p>
+        </div>
+
+        <div class="tier-board" id="tierBoard"></div>
+      </section>
+
+      <section class="feature-grid" id="writing">
+        <div class="panel">
+          <h3>Original writing</h3>
+          <p>
+            MythShelf can also hold your own fiction, worldbuilding notes, myth fragments,
+            character sketches and essays on storytelling.
+          </p>
+
+          <div class="panel-list">
+            <div>Story excerpts and experimental chapters</div>
+            <div>Worldbuilding journals and maps</div>
+            <div>Caribbean folklore and speculative notes</div>
+            <div>Essays on gods, monsters, magic and memory</div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h3>Reading paths</h3>
+          <p>
+            Curated paths help readers move through the shelf without being overwhelmed.
+          </p>
+
+          <div class="panel-list">
+            <div>Start here: beginner-friendly fantasy</div>
+            <div>Dark fantasy without total despair</div>
+            <div>Fantasy beyond medieval Europe</div>
+            <div>Books that changed how I think about worldbuilding</div>
+          </div>
+        </div>
+      </section>
+
+      <section id="suggest">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">Open a Portal</div>
+            <h2>Suggest a book.</h2>
+          </div>
+          <p>
+            Readers can recommend fantasy novels, hidden gems, Caribbean speculative works,
+            or strange mythic stories for the shelf.
+          </p>
+        </div>
+
+        <div class="panel">
+          <!-- Static version:
+               Replace this form action with a Google Form, Formspree, Netlify Forms, or other backend later. -->
+          <form class="suggest-form" id="suggestForm">
+            <div class="form-row">
+              <input type="text" id="suggestTitle" placeholder="Book title" required />
+              <input type="text" id="suggestAuthor" placeholder="Author" required />
+            </div>
+
+            <div class="form-row">
+              <select id="suggestGenre">
+                <option value="">Choose a category</option>
+                <option>Dark Fantasy</option>
+                <option>Epic Fantasy</option>
+                <option>Mythic Fantasy</option>
+                <option>Cozy Fantasy</option>
+                <option>Romantasy</option>
+                <option>Caribbean / Global Fantasy</option>
+                <option>Other Speculative Fiction</option>
+              </select>
+
+              <input type="text" id="suggestName" placeholder="Your name or nickname, optional" />
+            </div>
+
+            <textarea id="suggestReason" placeholder="Why should this be added to the shelf?"></textarea>
+
+            <button class="btn btn-green" type="submit">Send suggestion</button>
+
+            <div class="form-message" id="formMessage">
+              Portal opened. On GitHub Pages, this is a demo message. Connect this form to Google Forms, Formspree, Netlify Forms, or another service to collect real submissions.
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <section id="admin">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">Private Shelf Control</div>
+            <h2>Admin workflow.</h2>
+          </div>
+          <p>
+            On GitHub Pages, your secure admin layer is your GitHub account. Only people
+            with repository access can update the book spreadsheet.
+          </p>
+        </div>
+
+        <div class="panel">
+          <h3>How to update MythShelf</h3>
+          <p>
+            Edit your book list in Excel or Google Sheets, export it as <code>books.csv</code>,
+            then replace the existing <code>books.csv</code> file in your GitHub repository.
+          </p>
+
+          <div class="panel-list">
+            <div>1. Open your spreadsheet and update your books, ratings, tiers and tags.</div>
+            <div>2. Export or download the sheet as CSV.</div>
+            <div>3. Rename it exactly <code>books.csv</code>.</div>
+            <div>4. Upload it to the repository root and commit the change.</div>
+            <div>5. GitHub Pages will show the updated shelf after the site refreshes.</div>
+          </div>
+        </div>
+      </section>
+
+      <p class="footer-note">
+        MythShelf — a personal fantasy review blog with CSV-powered book cards,
+        personal tiers, original writing space and reader suggestions.
+      </p>
+    </div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
