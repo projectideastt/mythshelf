@@ -22,7 +22,6 @@
           <a href="#tiers">Tier List</a>
           <a href="#writing">Writing</a>
           <a href="#suggest">Suggest</a>
-          <a href="#admin">Admin</a>
         </div>
       </nav>
 
@@ -96,9 +95,9 @@
         </div>
 
         <div class="notice">
-          <strong>Repository mode:</strong>
-          update <code>books.csv</code> in GitHub to change the live shelf.
-          Keep the column names exactly as shown in the sample file.
+          <strong>How to update:</strong>
+          edit <code>books.csv</code> in GitHub. If you add a <code>CoverURL</code>, that image will display.
+          If you leave <code>CoverURL</code> blank but add an <code>ISBN</code>, the site will try to load a cover automatically.
         </div>
 
         <div class="controls">
@@ -191,7 +190,7 @@
 
         <div class="panel">
           <!-- Static version:
-               Replace this form action with a Google Form, Formspree, Netlify Forms, or other backend later. -->
+               Replace this form with Google Forms, Formspree, Netlify Forms, Tally, Airtable, or another backend later. -->
           <form class="suggest-form" id="suggestForm">
             <div class="form-row">
               <input type="text" id="suggestTitle" placeholder="Book title" required />
@@ -216,6 +215,13 @@
             <textarea id="suggestReason" placeholder="Why should this be added to the shelf?"></textarea>
 
             <button class="btn btn-green" type="submit">Send suggestion</button>
+
+            <div class="form-message" id="formMessage">
+              Portal opened. On GitHub Pages, this is a demo message. Connect this form to Google Forms, Formspree, Netlify Forms, Tally, Airtable, or another service to collect real submissions.
+            </div>
+          </form>
+        </div>
+      </section>
 
       <p class="footer-note">
         MythShelf — a personal fantasy review blog with CSV-powered book cards,

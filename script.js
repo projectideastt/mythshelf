@@ -23,7 +23,7 @@ const statTBR = document.getElementById("statTBR");
 
 async function loadBooks() {
   try {
-    const response = await fetch("books.csv", { cache: "no-store" });
+    const response = await fetch("books.csv?cacheBust=" + Date.now(), { cache: "no-store" });
 
     if (!response.ok) {
       throw new Error("books.csv could not be loaded");
@@ -93,6 +93,7 @@ function normalizeBookRow(row) {
   return {
     Title: row.Title || "",
     Author: row.Author || "",
+    ISBN: cleanISBN(row.ISBN || ""),
     CoverURL: row.CoverURL || "",
     CoverStyle: row.CoverStyle || "red",
     Subgenre: row.Subgenre || "Fantasy",
@@ -110,6 +111,26 @@ function normalizeBookRow(row) {
   };
 }
 
+function cleanISBN(value) {
+  return String(value || "").replace(/[^0-9Xx]/g, "");
+}
+
+function getCoverURL(book) {
+  const manualCover = String(book.CoverURL || "").trim();
+
+  if (manualCover) {
+    return manualCover;
+  }
+
+  if (book.ISBN) {
+    // Automatic cover lookup through Open Library's public cover service.
+    // Size options: S, M, L. L gives the largest available cover.
+    return "https://covers.openlibrary.org/b/isbn/" + encodeURIComponent(book.ISBN) + "-L.jpg";
+  }
+
+  return "";
+}
+
 function renderBooks() {
   const searchTerm = searchInput.value.toLowerCase().trim();
   let visibleCount = 0;
@@ -118,6 +139,7 @@ function renderBooks() {
     const combined = [
       book.Title,
       book.Author,
+      book.ISBN,
       book.Subgenre,
       book.Tier,
       book.ReviewStatus,
@@ -135,9 +157,10 @@ function renderBooks() {
     const isVisible = matchesFilter && matchesSearch;
     if (isVisible) visibleCount++;
 
-    const hasCoverURL = String(book.CoverURL || "").trim().length > 0;
+    const coverURL = getCoverURL(book);
+    const hasCoverURL = coverURL.length > 0;
     const coverStyle = hasCoverURL
-      ? `style="background-image:url('${escapeAttribute(book.CoverURL)}')"`
+      ? `style="background-image:url('${escapeAttribute(coverURL)}')"`
       : "";
 
     const reviewLink = String(book.ReviewLink || "").trim();

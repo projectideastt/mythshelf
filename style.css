@@ -328,7 +328,8 @@ code {
   margin-bottom: 22px;
 }
 
-.search-row {
+.search-row,
+.form-row {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
@@ -411,7 +412,7 @@ code {
 }
 
 .book-cover {
-  height: 260px;
+  height: 300px;
   padding: 18px;
   display: flex;
   flex-direction: column;
@@ -436,7 +437,7 @@ code {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(0,0,0,0.2), rgba(0,0,0,0.72));
+  background: linear-gradient(180deg, rgba(0,0,0,0.12), rgba(0,0,0,0.82));
   z-index: 1;
 }
 
@@ -467,7 +468,7 @@ code {
   letter-spacing: 0.13em;
   font-size: 0.68rem;
   font-weight: 900;
-  color: rgba(255,255,255,0.76);
+  color: rgba(255,255,255,0.82);
 }
 
 .book-cover strong {
@@ -475,7 +476,7 @@ code {
   line-height: 0.97;
   letter-spacing: -0.06em;
   max-width: 92%;
-  text-shadow: 0 3px 20px rgba(0,0,0,0.5);
+  text-shadow: 0 3px 20px rgba(0,0,0,0.75);
 }
 
 .book-body {
@@ -693,12 +694,6 @@ code {
   gap: 12px;
 }
 
-.form-row {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
 .form-message {
   display: none;
   border-radius: 18px;
@@ -776,6 +771,6 @@ code {
   }
 
   .book-cover {
-    height: 230px;
+    height: 280px;
   }
 }
