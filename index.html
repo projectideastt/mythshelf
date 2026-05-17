@@ -1,117 +1,339 @@
 <!DOCTYPE html>
 <html lang="en">
-<!-- Open Graph / WhatsApp / Facebook -->
-<meta property="og:title" content="Arcanium Index" />
-<meta property="og:description" content="Where books become worlds. Explore fiction, folklore, nonfiction, audiobooks and reading paths." />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://projectideastt.github.io/arcanium-index/" />
-<meta property="og:site_name" content="Arcanium Index" />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<meta property="og:image" content="https://projectideastt.github.io/arcanium-index/assets/arcanium-whatsapp-preview.png" />
-<meta property="og:image:secure_url" content="https://projectideastt.github.io/arcanium-index/assets/arcanium-whatsapp-preview.png" />
-<meta property="og:image:type" content="image/png" />
-<meta property="og:image:width" content="1200" />
-<meta property="og:image:height" content="630" />
-<meta property="og:image:alt" content="Arcanium Index — Where books become worlds." />
+  <meta
+    name="description"
+    content="Arcanium Index is a curated discovery system for fiction, folklore, audiobooks and world-shaping nonfiction."
+  />
 
-<!-- Twitter / X -->
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="Arcanium Index" />
-<meta name="twitter:description" content="Where books become worlds. Explore fiction, folklore, nonfiction, audiobooks and reading paths." />
-<meta name="twitter:image" content="https://projectideastt.github.io/arcanium-index/assets/arcanium-whatsapp-preview.png" />
+  <!-- Open Graph / WhatsApp / Facebook -->
+  <meta property="og:title" content="Arcanium Index" />
+  <meta
+    property="og:description"
+    content="Where books become worlds. Explore fiction, folklore, nonfiction, audiobooks and reading paths."
+  />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://projectideastt.github.io/arcanium-index/" />
+  <meta property="og:site_name" content="Arcanium Index" />
 
-<section class="stats">
-  <div class="stat"><strong>200±</strong><span>Estimated books remembered</span></div>
-  <div class="stat"><strong data-stat="logged">—</strong><span>Books currently logged</span></div>
-  <div class="stat"><strong data-stat="reviewed">—</strong><span>Reviewed / finished</span></div>
-  <div class="stat"><strong>3</strong><span>Reading eras</span></div>
-</section>
+  <meta
+    property="og:image"
+    content="https://projectideastt.github.io/arcanium-index/assets/arcanium-whatsapp-preview.png"
+  />
+  <meta
+    property="og:image:secure_url"
+    content="https://projectideastt.github.io/arcanium-index/assets/arcanium-whatsapp-preview.png"
+  />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta
+    property="og:image:alt"
+    content="Arcanium Index — Where books become worlds."
+  />
 
-<section>
-  <div class="section-head">
-    <div><div class="eyebrow">Now entering</div><h2>Current <span>world.</span></h2></div>
-    <p>The book currently open, paused at the threshold, or waiting to become the next world entered.</p>
-  </div>
-  <div class="card-grid grid-4" id="currentGrid"></div>
-</section>
+  <!-- Twitter / X -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Arcanium Index" />
+  <meta
+    name="twitter:description"
+    content="Where books become worlds. Explore fiction, folklore, nonfiction, audiobooks and reading paths."
+  />
+  <meta
+    name="twitter:image"
+    content="https://projectideastt.github.io/arcanium-index/assets/arcanium-whatsapp-preview.png"
+  />
 
-<section id="top10">
-  <div class="section-head">
-    <div><div class="eyebrow">Featured worlds</div><h2>Top 10 <span>recommended.</span></h2></div>
-    <p>Books I would most actively point someone toward based on impact, memory, momentum and world-opening power.</p>
-  </div>
-  <div class="carousel-wrap"><div class="carousel-track" id="top10Track"></div></div>
-</section>
+  <title>Home | Arcanium Index</title>
 
-<section id="top-voted">
-  <div class="section-head">
-    <div><div class="eyebrow">Wish Vault</div><h2>Most Requested <span>Worlds.</span></h2></div>
-    <p>Books waiting at the edge of the Index, ranked dynamically by reader votes.</p>
-  </div>
-  <div class="card-grid grid-3" id="topVotesGrid">
-    <article class="panel"><h3>Loading the votes...</h3><p>Checking the Wish Vault.</p></article>
-  </div>
-</section>
+  <link rel="icon" href="assets/mythicshelf-01.ico" sizes="any" />
+  <link rel="shortcut icon" href="assets/mythicshelf-01.ico" />
+  <link rel="stylesheet" href="assets/style.css" />
+</head>
 
-<section>
-  <div class="section-head">
-    <div><div class="eyebrow">Entry points</div><h2>Reading <span>routes.</span></h2></div>
-    <p>Three ways books enter the Index: early discovery, chosen quests, and open portals.</p>
-  </div>
-  <div class="card-grid grid-3">
-    <article class="panel"><h3>First Pages</h3><p>School, library, borrowed books, childhood series and early reading memories.</p><div class="era-count" data-era-count="First Pages">—</div><a class="teaser-link" href="shelf.html">Enter First Pages →</a></article>
-    <article class="panel"><h3>Chosen Quests</h3><p>Books selected later through audiobooks, purchases, recommendations and deeper curiosity.</p><div class="era-count" data-era-count="Chosen Quests">—</div><a class="teaser-link" href="shelf.html">Enter Chosen Quests →</a></article>
-    <article class="panel"><h3>Open Portals</h3><p>Current reads, paused journeys, unfinished series and books waiting for the right season.</p><div class="era-count" data-era-count="Open Portals">—</div><a class="teaser-link" href="shelf.html">Enter Open Portals →</a></article>
-  </div>
-</section>
+<body>
+  <main class="ms-site">
+    <div class="ms-shell">
 
-<section>
-  <div class="section-head">
-    <div><div class="eyebrow">Island lore</div><h2>Local books and <span>myth.</span></h2></div>
-    <p>A small but meaningful place for Caribbean fiction, folklore, history, culture and nonfiction that shapes story and place.</p>
-  </div>
-  <div class="card-grid grid-3">
-    <article class="panel"><h3>Local Fiction</h3><p>Caribbean novels, short stories and speculative works that belong on the shelf.</p><div class="pill-row"><span class="pill status">Coming soon</span></div></article>
-    <article class="panel"><h3>Folklore and Myth</h3><p>Books and notes that connect local memory, oral tradition, monsters, spirits and mythic storytelling.</p><span class="pill blue-pill">Story fuel</span></article>
-    <article class="panel"><h3>Non-Fiction Roots</h3><p>History, geography, environment and culture books that inform original writing and worldbuilding.</p><span class="pill">Research shelf</span></article>
-  </div>
-</section>
+      <nav class="ms-nav">
+        <a class="ms-brand" href="index.html">
+          <img class="ms-logo-img" src="assets/mythicshelf-01.png" alt="Arcanium Index logo" />
+          <span>Arcanium Index</span>
+        </a>
 
+        <div class="ms-links">
+          <a href="index.html">Home</a>
+          <a href="about.html">About</a>
+          <a href="shelf.html">The Index</a>
+          <a href="recommends.html">Reading Paths</a>
+          <a href="wish-shelf.html">Wish Vault</a>
+          <a href="writing.html">Writing</a>
+        </div>
+      </nav>
 
-<section>
-  <div class="section-head">
-    <div><div class="eyebrow">Discovery tools</div><h2>Reading <span>Paths.</span></h2></div>
-    <p>Use archetype blends or book-to-book paths to let the Index point you toward a world worth entering.</p>
-  </div>
-  <div class="card-grid grid-2">
-    <article class="panel"><h3>Explore by Archetype</h3><p>Choose up to three story forces such as The Shadow, The Rebel or The Magician and find books where they overlap.</p><a class="btn btn-primary" href="recommends.html#archetypes">Use Archetypes</a></article>
-    <article class="panel"><h3>Explore by Book Path</h3><p>Start with any book and follow a changing path through series order, themes, mood and related shelf energy.</p><a class="btn btn-secondary" href="recommends.html#bookpaths">Use Book Paths</a></article>
-  </div>
-</section>
+      <header class="hero">
+        <div>
+          <div class="eyebrow">✦ Fiction, folklore, nonfiction and reading paths</div>
+          <h1>Where books <span>become worlds.</span></h1>
+          <p>
+            Arcanium Index is a curated discovery system for fiction, folklore, audiobooks and world-shaping nonfiction.
+            Explore books through paths, rankings, lore, themes and reader-powered quests.
+          </p>
 
-<section>
-  <div class="section-head">
-    <div><div class="eyebrow">Newsletter</div><h2>The Arcanium <span>Newsletter.</span></h2></div>
-    <p>Occasional notes on current reads, recommendations, unfinished portals, voting results and original writing.</p>
-  </div>
-  <div class="card-grid grid-2">
-    <article class="panel">
-      <h3>Join the Newsletter</h3>
-      <p>A lightweight newsletter for reading updates, recommendations and writing notes.</p>
-      <form class="form" id="newsletterForm">
-        <input name="email" type="email" placeholder="Email address" required />
-        <input name="name" type="text" placeholder="Name or nickname, optional" />
-        <button class="btn btn-green" type="submit">Join the Newsletter</button>
-        <div class="form-message" id="newsletterMessage"></div>
-      </form>
-    </article>
-    <article class="panel"><h3>My Writing</h3><p>Story fragments, mythic ideas, Caribbean folklore notes, character sketches and worldbuilding still forming.</p><a class="btn btn-secondary" href="writing.html">Enter Writing</a></article>
-  </div>
-</section>
+          <div class="actions">
+            <a class="btn btn-primary" href="#top10">View Featured Worlds</a>
+            <a class="btn btn-secondary" href="wish-shelf.html">Vote the Next Quest</a>
+          </div>
+        </div>
 
-      <p class="footer">Arcanium Index — where books become worlds.</p>
+        <div class="hero-panel">
+          <div class="feature-stack">
+            <div class="float-book" id="heroTopPick">
+              <small>Featured World</small>
+              <strong>Golden Son</strong>
+            </div>
+
+            <div class="float-book" id="heroChosenQuest">
+              <small>Reading Path</small>
+              <strong>The Way of Kings</strong>
+            </div>
+
+            <div class="float-book" id="heroOpenPortal">
+              <small>Open Portal</small>
+              <strong>The Name of the Wind</strong>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <section class="stats">
+        <div class="stat">
+          <strong>200±</strong>
+          <span>Estimated books remembered</span>
+        </div>
+
+        <div class="stat">
+          <strong data-stat="logged">—</strong>
+          <span>Books currently indexed</span>
+        </div>
+
+        <div class="stat">
+          <strong data-stat="reviewed">—</strong>
+          <span>Reviewed / finished</span>
+        </div>
+
+        <div class="stat">
+          <strong>3</strong>
+          <span>Entry points</span>
+        </div>
+      </section>
+
+      <section>
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">Now on the table</div>
+            <h2>Current <span>portal.</span></h2>
+          </div>
+          <p>
+            The book currently open, paused beside the index, or waiting to become the next world entered.
+          </p>
+        </div>
+
+        <div class="card-grid grid-4" id="currentGrid"></div>
+      </section>
+
+      <section id="top10">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">Featured worlds</div>
+            <h2>Top 10 <span>recommended.</span></h2>
+          </div>
+          <p>
+            Stories I would most actively point someone toward based on impact, memory, momentum and personal endorsement.
+          </p>
+        </div>
+
+        <div class="carousel-wrap">
+          <div class="carousel-track" id="top10Track"></div>
+        </div>
+      </section>
+
+      <section id="top-voted">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">Wish Vault</div>
+            <h2>Top Voted <span>Quests.</span></h2>
+          </div>
+          <p>
+            Books waiting at the edge of the index, ranked dynamically by reader votes.
+          </p>
+        </div>
+
+        <div class="card-grid grid-3" id="topVotesGrid">
+          <article class="panel">
+            <h3>Loading the votes...</h3>
+            <p>Checking the Wish Vault.</p>
+          </article>
+        </div>
+      </section>
+
+      <section>
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">Reading history</div>
+            <h2>Entry <span>points.</span></h2>
+          </div>
+          <p>
+            Three ways books entered the index: early discovery, chosen quests and open portals.
+          </p>
+        </div>
+
+        <div class="card-grid grid-3">
+          <article class="panel">
+            <h3>First Pages</h3>
+            <p>
+              School, library, borrowed books, childhood series and early reading memories.
+            </p>
+            <div class="era-count" data-era-count="First Pages">—</div>
+            <a class="teaser-link" href="shelf.html">View First Pages →</a>
+          </article>
+
+          <article class="panel">
+            <h3>Chosen Quests</h3>
+            <p>
+              Books selected later through audiobooks, purchases, recommendations and deeper curiosity.
+            </p>
+            <div class="era-count" data-era-count="Chosen Quests">—</div>
+            <a class="teaser-link" href="shelf.html">View Chosen Quests →</a>
+          </article>
+
+          <article class="panel">
+            <h3>Open Portals</h3>
+            <p>
+              Current reads, paused journeys, unfinished series and books waiting for the right season.
+            </p>
+            <div class="era-count" data-era-count="Open Portals">—</div>
+            <a class="teaser-link" href="shelf.html">View Open Portals →</a>
+          </article>
+        </div>
+      </section>
+
+      <section>
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">Island lore</div>
+            <h2>Local books and <span>lore.</span></h2>
+          </div>
+          <p>
+            A small but meaningful place for Caribbean fiction, folklore, history, culture and nonfiction that shapes story and place.
+          </p>
+        </div>
+
+        <div class="card-grid grid-3">
+          <article class="panel">
+            <h3>Local Fiction</h3>
+            <p>
+              Caribbean novels, short stories and speculative works that belong in the index.
+            </p>
+            <div class="pill-row">
+              <span class="pill status">Coming soon</span>
+            </div>
+          </article>
+
+          <article class="panel">
+            <h3>Folklore and Myth</h3>
+            <p>
+              Books and notes that connect local memory, oral tradition, monsters, spirits and mythic storytelling.
+            </p>
+            <span class="pill blue-pill">Story fuel</span>
+          </article>
+
+          <article class="panel">
+            <h3>Nonfiction Roots</h3>
+            <p>
+              History, geography, environment and culture books that inform original writing and worldbuilding.
+            </p>
+            <span class="pill">Research shelf</span>
+          </article>
+        </div>
+      </section>
+
+      <section>
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">Recommendation tools</div>
+            <h2>Reading <span>Paths.</span></h2>
+          </div>
+          <p>
+            Use archetype blends or book-to-book paths to let the index point you toward something to read.
+          </p>
+        </div>
+
+        <div class="card-grid grid-2">
+          <article class="panel">
+            <h3>Explore by Archetype</h3>
+            <p>
+              Choose up to three story forces such as The Shadow, The Rebel or The Magician and find books where they overlap.
+            </p>
+            <a class="btn btn-primary" href="recommends.html#archetypes">Use Archetypes</a>
+          </article>
+
+          <article class="panel">
+            <h3>Explore by Book Path</h3>
+            <p>
+              Start with any book and follow a changing path through series order, themes, mood and related index energy.
+            </p>
+            <a class="btn btn-secondary" href="recommends.html#bookpaths">Use Book Paths</a>
+          </article>
+        </div>
+      </section>
+
+      <section>
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">Newsletter</div>
+            <h2>The Arcanium <span>Newsletter.</span></h2>
+          </div>
+          <p>
+            Occasional notes on current reads, top recommendations, unfinished portals, voting results and original writing.
+          </p>
+        </div>
+
+        <div class="card-grid grid-2">
+          <article class="panel">
+            <h3>Join the Newsletter</h3>
+            <p>
+              A lightweight newsletter for reading updates, top index notes and writing notes.
+            </p>
+
+            <form class="form" id="newsletterForm">
+              <input name="email" type="email" placeholder="Email address" required />
+              <input name="name" type="text" placeholder="Name or nickname, optional" />
+              <button class="btn btn-green" type="submit">Join the Newsletter</button>
+              <div class="form-message" id="newsletterMessage"></div>
+            </form>
+          </article>
+
+          <article class="panel">
+            <h3>Writing</h3>
+            <p>
+              Story fragments, mythic ideas, Caribbean folklore notes, character sketches and worldbuilding still forming.
+            </p>
+            <a class="btn btn-secondary" href="writing.html">Enter the Writing Shelf</a>
+          </article>
+        </div>
+      </section>
+
+      <p class="footer">
+        Arcanium Index — a discovery system for fiction, folklore, nonfiction, reading paths and books that open worlds.
+      </p>
+
     </div>
   </main>
+
   <script src="assets/script.js"></script>
 </body>
 </html>
